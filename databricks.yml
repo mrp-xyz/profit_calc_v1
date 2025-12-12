@@ -6,10 +6,7 @@ resources:
     profitcalc:
       name: profitcalc
       description: "Profit Calculator Web Application"
-      resources:
-        - name: main
-          description: "Main profit calculator app"
-          source_code_path: /Repos/mpringle@squareup.com/profitcalc
+      source_code_path: /Repos/mpringle@squareup.com/profitcalc
           
 targets:
   dev:
