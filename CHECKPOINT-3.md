@@ -1,77 +1,87 @@
-# Checkpoint 3 - Profit Calculator
+# Checkpoint 3 - Profit Calculator v1 (Final)
 
-**Date:** December 9, 2025
+**Date:** December 11, 2025  
+**Git:** https://github.com/mrp-xyz/profit_calc_v1
 
 ## Summary
-Interactive profit calculator with fully functional inputs, real-time calculations, delightful odometer animation, and design system aligned components.
+Interactive profit calculator for Neighborhoods on Cash App - allows sellers to estimate savings based on their business metrics.
 
-## What's Working
+## Toast (Collapsed View)
+- **Headline:** "Estimate your savings on $170K/mo"
+- **Subhead:** "By joining Neighborhoods on Cash App"
+- **Actions:** "Show me" button + close (X)
 
-### Core Features
-- Collapsed toast with "Show me" expand interaction
-- Expanded view with smooth grow animation and background dimming
-- Sticky header with hero savings amount
-- Scrollable content area (hidden scrollbar) with sticky footer buttons
-- Fixed 720px width for both states (no jitter on value changes)
+## Expanded View
 
-### Hero Animation (Odometer Style)
-- Each digit is a scrolling column of 0-9
-- Digits roll up/down to target value like a cash register
-- Staggered animation timing per digit (40ms delay)
-- Smooth cubic-bezier easing for mechanical feel
-- Proper baseline alignment with flex-end
+### Hero Section
+- Large savings amount with odometer animation (e.g., "$5,793/month")
+- Subhead: "What you could keep when you join Neighborhoods on Cash App"
 
-### Functional Inputs (All Connected to Calculation!)
-- **Total monthly sales**: Editable text input → affects all savings
-- **Number of locations**: +/- stepper → multiplies all savings
-- **Sales breakdown**: 
-  - In-store, Online, Third-party percentage inputs
-  - Third-party % directly affects Fee Savings calculation
-  - Dynamic bar graph with 4px gap between segments
-  - Error state when total exceeds 100% (calculation still updates - better UX)
-- **Channel shift** (5/10/15/20%): % of third-party sales moved to in-app
-- **Fees section**:
-  - Third-party marketplace fee: affects fee savings differential
-  - App fees + loyalty cost: contribute to Other Savings
+### Your Numbers
+- **Average monthly sales:** Editable text input (default $170,000)
+- **Number of locations:** Stepper +/- (default 2)
 
-### Calculation Logic
+### Your Sales Breakdown
+- Color-coded bar graph (teal/purple/orange)
+- In-store: 70% (teal)
+- Online: 20% (purple)  
+- Third-party: 10% (orange)
+- Editable percentage inputs
+
+### Your Fees
+- Third-party marketplace fee: 20% (stepper)
+
+### With Neighborhoods on Cash App
+- Large display heading
+- Value prop description with "Learn more" link
+
+### Keep More of Every Order
+- Explains 1% vs marketplace fees
+- **Potential share of sales from direct orders:** 3%, 7%, 10%, 15% options
+- Shows calculated savings for each option
+
+### Estimated Rewards Impact
+- How rewards work (bullet list)
+- **Potential rewards activity:** Steady, Typical, High options
+
+### Other Savings
+- Replace paid tools description
+
+### Summary Ledger
+- Fee savings
+- Rewards growth
+- Other savings
+- Total (monthly)
+- Annual savings
+
+### Footer
+- "Remind me later" (secondary)
+- "Get started" (primary)
+
+## Calculation Logic
 ```
-Third-party Sales = Monthly Sales × Third-party %
-Shifted Sales = Third-party Sales × Channel Shift %
-Fee Savings = Shifted Sales × (3P Fee - 1%) × Locations
+Fee Savings = monthlySales × directOrderPercent × (thirdPartyFee - 0.01) × locations × 0.95
 
-Rewards Growth = Monthly Sales × 5% lift × 25% margin × Locations
-Other Savings = (App Fees + Loyalty Cost) × Locations
+Rewards Growth = $668.50 base × activityMultiplier × locations
+  - Steady: 0.67x
+  - Typical: 1.0x
+  - High: 1.31x
+
+Other Savings = $80 × locations
 
 Total = Fee Savings + Rewards Growth + Other Savings
+Annual = Total × 12
 ```
 
-### Design System Alignment
-- **Channel shift buttons**: Match Square design system
-  - Height: 72px (min 64px)
-  - Border: 1px #dadada → 2px #101010 on select
-  - Border radius: 6px (--radius-100)
-  - Padding: 16px horizontal
-  - Gap: 12px
-  - Typography: Display Bold 19px / Text Regular 16px #666
-
-### UI/UX
+## Tech Stack
+- Vanilla HTML/CSS/JavaScript
 - Square Sans font family (Display, Text, Mono)
-- Tabular nums for consistent digit widths
-- Smooth transitions and animations
-- Clean expanded view without visible scrollbar
-- Collapsed banner updates instantly (no animation)
-- Ledger values fade for subtlety
+- Odometer-style number animation
+- No frameworks/dependencies
 
 ## Files
-- `index.html` - Main structure
-- `styles.css` - All styling including odometer CSS
-- `script.js` - Interactions, calculations, and odometer animation
-- `assets/` - Dashboard background and seller logo
-- `fonts/` - Square Sans font files
-
-## Design Decisions
-- No auto-rebalancing on sales breakdown (users input real business data)
-- Error state for >100% shows but calculation still updates (non-punitive UX)
-- Odometer animation only on hero expanded view
-- Sales breakdown third-party % directly impacts fee savings
+- `index.html` - Structure
+- `styles.css` - Styling
+- `script.js` - Interactivity & calculations
+- `assets/` - Images
+- `fonts/` - Square Sans fonts
