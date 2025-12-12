@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Background Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <div class="dashboard-bg">
+    <img src="assets/Dashboard.png" alt="Dashboard Background">
+  </div>
+
+  <!-- Floating Toast -->
+  <div class="toast" id="toast">
+    <!-- Collapsed State -->
+    <div class="toast-collapsed" id="toast-collapsed">
+      <div class="toast-left">
+        <div class="seller-card">
+          <div class="logo-placeholder">
+            <img src="assets/Joy_Bakeshop_seller_image.png" alt="Joy Bakeshop">
+          </div>
+        </div>
+        <div class="toast-text">
+          <h2 class="toast-headline">Estimate your savings on $170K/mo</h2>
+          <p class="toast-subtext">By joining Neighborhoods on Cash App</p>
+        </div>
+      </div>
+      <div class="toast-right">
+        <button class="btn-show-me" id="btn-expand">Show me</button>
+        <button class="btn-close" id="toast-close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#101010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Expanded State -->
+    <div class="toast-expanded" id="toast-expanded">
+      <!-- Sticky Header -->
+      <div class="expanded-header">
+        <div class="header-top">
+          <div class="seller-card">
+            <div class="logo-placeholder">
+              <img src="assets/Joy_Bakeshop_seller_image.png" alt="Joy Bakeshop">
+            </div>
+          </div>
+          <button class="btn-close" id="expanded-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="#101010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="hero-section">
+          <h1 class="hero-amount" id="hero-amount">$3,796/month</h1>
+          <p class="hero-subhead">What you could keep when you join Neighborhoods on Cash App</p>
+        </div>
+      </div>
+
+      <!-- Scrollable Content -->
+      <div class="expanded-scroll">
+        
+        <!-- Your Numbers Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Your numbers</h3>
+          <p class="section-subtitle">Based on your sales and typical fees.</p>
+          
+          <div class="input-row">
+            <div class="input-group">
+              <label class="input-label">Average monthly sales</label>
+              <div class="input-field">
+                <span class="currency-sign">$</span>
+                <input type="text" id="sales-input" class="sales-input" value="170,000">
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">Number of locations</label>
+              <div class="stepper-field">
+                <button class="stepper-btn" data-action="decrease" data-target="locations-input">−</button>
+                <span class="stepper-value" id="locations-input">2</span>
+                <button class="stepper-btn" data-action="increase" data-target="locations-input">+</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sales Breakdown Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Your sales breakdown</h3>
+          <p class="section-subtitle">These are estimated starting points — adjust them to match your business.</p>
+          
+          <div class="breakdown-bar" id="breakdown-bar">
+            <div class="bar-segment bar-instore" id="bar-instore" style="width: 70%"></div>
+            <div class="bar-segment bar-online" id="bar-online" style="width: 20%"></div>
+            <div class="bar-segment bar-thirdparty" id="bar-thirdparty" style="width: 10%"></div>
+          </div>
+          <p class="breakdown-error" id="breakdown-error"></p>
+          
+          <div class="breakdown-items">
+            <div class="breakdown-item">
+              <div class="breakdown-left">
+                <span class="dot dot-instore"></span>
+                <span class="breakdown-label">In-store</span>
+              </div>
+              <div class="breakdown-input-box">
+                <input type="number" id="input-instore" class="breakdown-input" value="70" min="0" max="100">
+                <span class="percent-sign">%</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-left">
+                <span class="dot dot-online"></span>
+                <span class="breakdown-label">Online</span>
+              </div>
+              <div class="breakdown-input-box">
+                <input type="number" id="input-online" class="breakdown-input" value="20" min="0" max="100">
+                <span class="percent-sign">%</span>
+              </div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-left">
+                <span class="dot dot-thirdparty"></span>
+                <span class="breakdown-label">Third-party (DoorDash, Uber Eats, Grubhub, etc.)</span>
+              </div>
+              <div class="breakdown-input-box">
+                <input type="number" id="input-thirdparty" class="breakdown-input" value="10" min="0" max="100">
+                <span class="percent-sign">%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Your Fees Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Your fees</h3>
+          <p class="section-subtitle">Prefilled using typical industry rates—you can adjust if needed.</p>
+          
+          <div class="fee-item">
+            <label class="input-label">Third-party marketplace fee</label>
+            <div class="stepper-field">
+              <button class="stepper-btn" data-action="decrease" data-target="thirdparty-fee">−</button>
+              <span class="stepper-value" id="thirdparty-fee" data-value="20">20%</span>
+              <button class="stepper-btn" data-action="increase" data-target="thirdparty-fee">+</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- With Neighborhoods Section -->
+        <section class="calc-section neighborhoods-section">
+          <h2 class="display-heading">With Neighborhoods<br>on Cash App</h2>
+          <p class="neighborhoods-desc">Access free marketing tools, neighborhood-wide rewards, and our lowest standard processing fee on direct orders placed through Cash App. <a href="#" class="text-link">Learn more</a></p>
+        </section>
+
+        <!-- Keep More Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Keep more of every order</h3>
+          <p class="section-subtitle">Every order placed through Cash App replaces high marketplace fees with a 1% processing fee. Many sellers shift 3–10% of sales with direct ordering on Cash App.</p>
+          
+          <label class="input-label">Potential share of sales from direct orders</label>
+          <div class="channel-options" id="direct-order-options">
+            <div class="channel-option" data-value="3">
+              <span class="channel-percent">3%</span>
+              <span class="channel-savings">+$237/mo</span>
+            </div>
+            <div class="channel-option selected" data-value="7">
+              <span class="channel-percent">7%</span>
+              <span class="channel-savings">+$475/mo</span>
+            </div>
+            <div class="channel-option" data-value="10">
+              <span class="channel-percent">10%</span>
+              <span class="channel-savings">+$712/mo</span>
+            </div>
+            <div class="channel-option" data-value="15">
+              <span class="channel-percent">15%</span>
+              <span class="channel-savings">+$950/mo</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Estimated Rewards Impact Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Estimated rewards impact</h3>
+          <p class="section-subtitle">Customers who earn neighborhood rewards tend to visit more often and spend more. Square funds these rewards for your first 6 months, so you keep your full margin on every redemption.</p>
+          
+          <div class="how-it-works">
+            <p class="how-title">How it works</p>
+            <ul class="how-list">
+              <li>Customers earn 10% back every order subtotal</li>
+              <li>Rewards bring customers back more often</li>
+              <li>Square funds the rewards for the first 6 months</li>
+            </ul>
+          </div>
+          
+          <label class="input-label">Potential rewards activity</label>
+          <div class="channel-options rewards-options" id="rewards-options">
+            <div class="channel-option" data-value="steady">
+              <span class="channel-percent">Steady activity</span>
+              <span class="channel-savings">+$900/mo</span>
+            </div>
+            <div class="channel-option selected" data-value="typical">
+              <span class="channel-percent">Typical activity</span>
+              <span class="channel-savings">+$1,337/mo</span>
+            </div>
+            <div class="channel-option" data-value="high">
+              <span class="channel-percent">High activity</span>
+              <span class="channel-savings">+$1,750/mo</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Other Savings Section -->
+        <section class="calc-section">
+          <h3 class="section-title">Other savings</h3>
+          <div class="other-savings-content">
+            <p class="driver-title">Replace paid tools</p>
+            <p class="driver-desc">Reduce software costs by replacing your loyalty vendor and online ordering app.</p>
+          </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="calc-section summary-section">
+          <h3 class="section-title">Summary</h3>
+          <div class="summary-ledger">
+            <div class="summary-row">
+              <span class="summary-label">Fee savings</span>
+              <span class="summary-value" data-calc="fee-savings">$1,260/month</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Rewards growth</span>
+              <span class="summary-value" data-calc="rewards-growth">$1,337/month</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Other savings</span>
+              <span class="summary-value" data-calc="other-savings">$160/month</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span class="summary-label">Total</span>
+              <span class="summary-value" data-calc="total">$3,796/month</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Annual savings</span>
+              <span class="summary-value" data-calc="annual">$45,552/year</span>
+            </div>
+          </div>
+        </section>
+
+        <p class="disclaimer">Estimates provided for illustrative purposes only. Actual savings will vary based on program adoption, sales and business performance, actual fees, and other factors relating to your unique circumstances.</p>
+      </div>
+
+      <!-- Sticky Footer -->
+      <div class="expanded-footer">
+        <div class="footer-buttons">
+          <button class="btn-secondary">Remind me later</button>
+          <button class="btn-primary">Get started</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

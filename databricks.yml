@@ -1,0 +1,14 @@
+bundle:
+  name: profitcalc
+
+resources:
+  apps:
+    profitcalc:
+      name: profitcalc
+      description: "Profit Calculator Web Application"
+          
+targets:
+  dev:
+    mode: development
+  prod:
+    mode: production
